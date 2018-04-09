@@ -1,0 +1,31 @@
+version: '2'
+services:
+  #
+  # NodeJs
+  #
+  node:
+    image: node:carbon
+    # name the created container..
+    container_name: ${APP_NAME}-node
+    command: "npm start"
+    # from that build image..
+    build: ./config/node
+    # exposing..
+    ports:
+      - "49161:8080"
+    # and loading env into the created container..
+    env_file: .env
+    volumes_from:
+      - persistent-data
+    working_dir: /usr/src/app
+
+  #
+  # Persistence
+  #
+  persistent-data:
+    image: busybox
+    container_name: ${APP_NAME}-persistent
+    command: "true"
+    volumes:
+      - ${APP_PERSISTENT}:/usr/src/app
+
