@@ -9,10 +9,10 @@ services:
     container_name: ${APP_NAME}-node
     command: "npm start"
     # from that build image..
-    build: ./config/node
+    #build: ./config/node
     # exposing..
     ports:
-      - "49161:8080"
+      - "${APP_PORT}:8080"
     # and loading env into the created container..
     env_file: .env
     volumes_from:
